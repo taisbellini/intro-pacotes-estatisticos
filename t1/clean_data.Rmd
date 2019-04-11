@@ -3,11 +3,17 @@ title: "Trabalho 1 - Introducao a Pacotes Estatisticos"
 output: html_notebook
 ---
 
-Ler o arquivo .csv e carregar os dados para a variavel 'data'. 
+##Leitura do arquivo e renomeação das variáveis
+
+####Ler o arquivo .csv e carregar os dados para a variavel 'data'. 
+
+```{r}
+data <- read.csv2("data.csv", dec=".", sep=",", encoding = 'UTF-8');
+```
+
 Renomear as colunas para nomes mais sucintos.
 
 ```{r}
-data <- read.csv2("data.csv", dec=".", sep=",");
 names(data)[names(data) == "Data.de.nascimento."] <- "nascimento";
 names(data)[names(data) == "Gênero"] <- "genero";
 names(data)[names(data) == "Qual.a.sua.escolaridade."] <- "escolaridade";
@@ -24,7 +30,7 @@ names(data)[names(data) == "Como.você.avalia.o.seu.desempenho.escolar.acadêmic
 names(data)[names(data) == "Você.está.atualmente.empregado.a.."] <- "empregado";
 names(data)[names(data) == "Qual.o.tipo.de.trabalhador.você.é."] <- "tipo_trabalhador";
 names(data)[names(data) == "Como.você.considera.o.seu.rendimento.na.sua.atual.ocupação."] <- "desempenho_trabalho";
-names(data)[names(data) == "Com.que.frequência.você.se.sente.cansado.a.."] <- "cansaco";
+names(data)[names(data) == "Com.que.frequência.você.se.sente.cansado.a.."] <- "cansado";
 names(data)[names(data) == "Quantas.vezes.no.último.ano.você.ficou.doente."] <- "vezes_doente";
 names(data)[names(data) == "Nas.vezes.que.ficou.doente..foi.necessário.ir.a.um.médico."] <- "foi_medico";
 names(data)[names(data) == "Depois.de.ir.ao.médico..você.precisou.tomar.alguma.medicação."] <- "medicacao";
@@ -32,9 +38,16 @@ names(data)[names(data) == "Você.já.doou.sangue."] <- "doador";
 names(data)[names(data) == "Você.já.se.sentiu.mal.ao.doar.sangue."] <- "doador_sentiu_mal";
 names(data)[names(data) == "Mais.alguém.da.sua.família.já.se.sentiu.mal.ao.doar.sangue."] <- "doador_familia";
 
-colnames(data);
-
 ```
+
+
+
+Salvar arquivo.
+
+```{r}
+write.csv(data, file="data_renamed_columns.csv");
+```
+
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
 
