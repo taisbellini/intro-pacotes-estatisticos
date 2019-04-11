@@ -11,6 +11,7 @@ EXECUTE.
 
 * Visual Binning.
 *populatn.
+*percentiles
 RECODE  populatn (MISSING=COPY) (LO THRU 5100.0=1) (LO THRU 10400.0=2) (LO THRU 35600.0=3) (LO THRU 
     HI=4) (ELSE=SYSMIS) INTO populatn_quartis.
 VARIABLE LABELS  populatn_quartis 'Population in thousands (Binned)'.
@@ -21,3 +22,7 @@ EXECUTE.
 
 FREQUENCIES VARIABLES=populatn_quartis
   /ORDER=ANALYSIS.
+
+*criando variavel calculada de pib total.
+COMPUTE gdp=gdp_cap * populatn.
+EXECUTE.
