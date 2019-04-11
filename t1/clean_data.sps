@@ -154,3 +154,11 @@ FREQUENCIES VARIABLES=nascimento genero escolaridade altura peso horas_sono exer
 SELECT IF (XDATE.YEAR(nascimento) ~= 2019).
 EXECUTE.
 
+
+SAVE TRANSLATE OUTFILE='C:\Users\bellini\workspace\intro-pacotes-estatisticos\t1\data2.xlsx'
+  /TYPE=XLS
+  /VERSION=12
+  /MAP
+  /REPLACE
+  /FIELDNAMES
+  /CELLS=LABELS.
