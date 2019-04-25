@@ -1,9 +1,7 @@
 
 * Define Variable Properties.
 *nascimento.
-
 ALTER TYPE  nascimento(SDATE10).
-*nascimento.
 VARIABLE LABELS  nascimento 'Data de nascimento'.
 FORMATS  nascimento(SDATE10).
 *genero.
@@ -151,6 +149,7 @@ FREQUENCIES VARIABLES=nascimento genero escolaridade altura peso horas_sono exer
     doador_familia
   /ORDER=ANALYSIS.
 
+*Remover dados errados (data de nascimento em 2019).
 SELECT IF (XDATE.YEAR(nascimento) ~= 2019).
 EXECUTE.
 
@@ -162,3 +161,67 @@ SAVE TRANSLATE OUTFILE='C:\Users\bellini\workspace\intro-pacotes-estatisticos\t1
   /REPLACE
   /FIELDNAMES
   /CELLS=LABELS.
+
+DATASET ACTIVATE DataSet1.
+AUTORECODE VARIABLES=genero escolaridade horas_sono acucar origem_animal estudante turno 
+    horas_estudo desempenho_estudo empregado tipo_trabalhador desempenho_trabalho cansado vezes_doente 
+    foi_medico medicacao doador doador_sentiu_mal doador_familia 
+  /INTO genero_num escolaridade_num horas_sono_num acucar_num origem_animal_num estudante_num 
+    turno_num horas_estudo_num desempenho_estudo_num empregado_num tipo_trabalhador_num 
+    desempenho_trabalho_num cansado_num vezes_doente_num foi_medico_num medicacao_num doador_num 
+    doador_sentiu_mal_num doador_familia_num
+  /BLANK=MISSING
+  /PRINT.
+
+* Define Variable Properties.
+*origem_animal_num.
+VALUE LABELS origem_animal_num
+  1 'Alguns dias na semana'
+  2 'Nunca'
+  3 'Raramente'
+  4 'Todos os dias, em 1 ou 2 refeições'
+  5 'Todos os dias, em todas as refeições'.
+*estudante_num.
+VALUE LABELS estudante_num
+  1 'Nao'
+  2 'Sim'.
+*empregado_num.
+VALUE LABELS empregado_num
+  1 'Nao'
+  2 'Sim'.
+*medicacao_num.
+VALUE LABELS medicacao_num
+  1 'Nao'
+  2 'Sim'.
+*doador_num.
+VALUE LABELS doador_num
+  1 'Nao'
+  2 'Sim'.
+*doador_sentiu_mal_num.
+VALUE LABELS doador_sentiu_mal_num
+  1 'Nao'
+  2 'Sim'.
+*doador_familia_num.
+VALUE LABELS doador_familia_num
+  1 'Nao'
+  2 'Nao sei'
+  3 'Sim'.
+EXECUTE.
+
+RECODE horas_estudo (CONVERT) ('NA'=999) INTO horas_estudo_num.
+VARIABLE LABELS  horas_estudo_num 'Horas de estudo'.
+EXECUTE.
+
+* Define Variable Properties.
+*horas_estudo_num.
+FORMATS  horas_estudo_num(F8.0).
+EXECUTE.
+
+RECODE exercicios_fisicos (CONVERT) ('Nenhuma'=0) INTO exercicios_fisicos_num.
+VARIABLE LABELS  exercicios_fisicos_num 'Exercicios fisicos semana'.
+EXECUTE.
+
+* Define Variable Properties.
+*exercicios_fisicos_num.
+FORMATS  exercicios_fisicos_num(F8.0).
+EXECUTE.
